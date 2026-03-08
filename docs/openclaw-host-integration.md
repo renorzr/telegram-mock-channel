@@ -8,6 +8,8 @@ This document describes how to wire this standalone plugin into the OpenClaw mai
 - Outbound Telegram Bot API calls are mirrored into mock outbound queue.
 - Gateway lifecycle controls mock HTTP service lifecycle (already handled by channel gateway start/abort).
 
+Important: mock inbound endpoints require bridge installation. If bridge is not installed, inbound calls return `MOCK_HANDLER_FAILURE`.
+
 ## Hook points in openclaw/openclaw
 
 Based on current upstream layout:

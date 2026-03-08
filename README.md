@@ -90,6 +90,18 @@ Example generated config shape:
 
 ## Control plane usage (test program)
 
+Important: before using `inbound/message` or `inbound/callback_query`, you must install a bridge with `installTelegramMockBridge(...)` in your host process. Otherwise inbound requests fail with `MOCK_HANDLER_FAILURE` ("Telegram mock bridge is not configured ...").
+
+Minimal no-op bridge (for control-plane smoke tests only):
+
+```ts
+import { installTelegramMockBridge } from "telegram-mock-channel";
+
+installTelegramMockBridge(async () => {
+  // no-op: accepts inbound without forwarding into Telegram runtime
+});
+```
+
 Assume plugin account `loomplus` is configured and server binds to `127.0.0.1:18790`.
 
 Set auth header when `mock_api_key` is configured:
@@ -188,6 +200,12 @@ function onTelegramApiCall(accountId: string, method: string, payload: Record<st
   recordTelegramOutboundCall({ accountId, method, payload });
 }
 ```
+
+Why this is required:
+
+- `gateway.startAccount` starts the mock HTTP service lifecycle.
+- `installTelegramMockBridge(...)` binds inbound mock updates to your Telegram runtime handler.
+- Keeping this explicit avoids false-positive tests where inbound is accepted but never processed by business logic.
 
 See `docs/openclaw-host-integration.md` for recommended patch points.
 
