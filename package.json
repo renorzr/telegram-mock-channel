@@ -1,0 +1,46 @@
+{
+  "name": "telegram-mock-channel",
+  "version": "0.1.1",
+  "description": "OpenClaw telegram-mock channel plugin",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "openclaw.plugin.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test dist/tests/**/*.test.js",
+    "test:src": "tsx --test tests/**/*.test.ts"
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.11",
+    "tsx": "^4.19.2",
+    "typescript": "^5.8.2"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "openclaw": {
+    "extensions": [
+      "./dist/index.js"
+    ],
+    "channel": {
+      "id": "telegram-mock",
+      "label": "Telegram Mock",
+      "selectionLabel": "Telegram Mock (Test)",
+      "docsPath": "/channels/telegram-mock",
+      "blurb": "Mock Telegram channel for CI and integration tests."
+    },
+    "install": {
+      "npmSpec": "telegram-mock-channel",
+      "defaultChoice": "npm"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "id": "telegram-mock-channel",
+  "channels": ["telegram-mock"],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}
